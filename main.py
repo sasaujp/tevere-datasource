@@ -93,8 +93,11 @@ def make_data(dirpath, data_path):
     os.mkdir(data_path)
 
     redirects = {}
-    for json_file in filter(lambda x: 'redirect' in x, glob.glob1(os.path.join(dirpath, 'dbpedia.org'), '*.json')):
-        json_file = os.path.join(dirpath, 'dbpedia.org', json_file)
+    JA_DBPEDIA = 'ja.dbpedia.org'
+    WIKIDATA = 'query.wikidata.org'
+
+    for json_file in filter(lambda x: 'redirect' in x, glob.glob1(os.path.join(dirpath, JA_DBPEDIA), '*.json')):
+        json_file = os.path.join(dirpath, JA_DBPEDIA, json_file)
         data = json.load(open(json_file))
         bindings = data['results']['bindings']
         for row in bindings:
@@ -111,8 +114,8 @@ def make_data(dirpath, data_path):
     commanders = defaultdict(default_factory1)
     subjects = defaultdict(default_factory1)
     places = defaultdict(default_factory1)
-    for json_file in filter(lambda x: 'redirect' not in x, glob.glob1(os.path.join(dirpath, 'dbpedia.org'), '*.json')):
-        json_file = os.path.join(dirpath, 'dbpedia.org', json_file)
+    for json_file in filter(lambda x: 'redirect' not in x, glob.glob1(os.path.join(dirpath, JA_DBPEDIA), '*.json')):
+        json_file = os.path.join(dirpath, JA_DBPEDIA, json_file)
         data = json.load(open(json_file))
         bindings = data['results']['bindings']
         logger.debug('%s', json_file)
@@ -155,8 +158,8 @@ def make_data(dirpath, data_path):
                     lang = row[key]['xml:lang']
                     places[get_redirect(place['value'])][key][lang] = row[key]['value']
     wikidata_dates = defaultdict(set)
-    for json_file in glob.glob1(os.path.join(dirpath, 'wikidata.dbpedia.org'), '*.json'):
-        json_file = os.path.join(dirpath, 'wikidata.dbpedia.org', json_file)
+    for json_file in glob.glob1(os.path.join(dirpath, WIKIDATA), '*.json'):
+        json_file = os.path.join(dirpath, WIKIDATA, json_file)
         data = json.load(open(json_file))
         bindings = data['results']['bindings']
         logger.debug('%s', json_file)
