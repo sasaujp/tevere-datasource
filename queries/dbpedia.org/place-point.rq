@@ -1,0 +1,27 @@
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+prefix dbp: <http://dbpedia.org/property/>
+prefix dbo: <http://dbpedia.org/ontology/>
+prefix georss: <http://www.georss.org/georss/>
+
+
+select distinct ?place ?point where {
+    ?battle rdf:type dbo:MilitaryConflict .
+    ?battle rdf:type dbo:Event .
+    {
+        {
+            ?battle dbo:place ?place .
+        } union {
+            ?battle dbp:place ?place .
+        }
+        FILTER NOT EXISTS{?place dbo:wikiPageRedirects ?redirects}
+    } union {
+        {
+            ?battle dbo:place ?p .
+        } union {
+            ?battle dbp:place ?p .
+        }
+        ?p dbo:wikiPageRedirects ?place
+    }
+    ?place georss:point ?point .
+}

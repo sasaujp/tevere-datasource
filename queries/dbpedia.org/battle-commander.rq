@@ -1,0 +1,9 @@
+prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+prefix dbo: <http://dbpedia.org/ontology/>
+
+
+select distinct ?battle ?commander where {
+    ?battle rdf:type dbo:MilitaryConflict .
+    ?battle rdf:type dbo:Event .
+    ?battle dbo:commander ?commander .
+}

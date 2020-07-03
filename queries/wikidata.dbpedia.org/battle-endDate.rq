@@ -1,0 +1,5 @@
+prefix dbo: <http://dbpedia.org/ontology/>
+
+select distinct ?battle ?date where {
+  ?battle dbo:endDate ?date .
+}

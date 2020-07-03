@@ -1,0 +1,15 @@
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+prefix dbo: <http://dbpedia.org/ontology/>
+prefix dct: <http://purl.org/dc/terms/>
+
+
+select distinct ?exclude where {
+    ?exclude rdf:type dbo:MilitaryConflict .
+    ?exclude rdf:type dbo:Event .
+    {
+        ?exclude rdf:type dbo:SportsSeason .
+    } union {
+        ?exclude dct:subject dbc:Fictional_battles .
+    }
+}
