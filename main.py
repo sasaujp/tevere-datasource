@@ -93,7 +93,7 @@ def make_data(dirpath, data_path):
     os.mkdir(data_path)
 
     redirects = {}
-    JA_DBPEDIA = 'ja.dbpedia.org'
+    JA_DBPEDIA = 'dbpedia.org'
     WIKIDATA = 'query.wikidata.org'
 
     for json_file in filter(lambda x: 'redirect' in x, glob.glob1(os.path.join(dirpath, JA_DBPEDIA), '*.json')):
